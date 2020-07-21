@@ -1,6 +1,6 @@
 const {MongoClient, ObjectId} = require('mongodb');
 const assert = require('assert');
-const url = process.env.MONGODB_URI || 'mongodb://localhost:27017';
+const url = 'mongodb+srv://vdmclcv:testconnect@cluster0.bjsgz.mongodb.net/valuer?retryWrites=true&w=majority' || 'mongodb://localhost:27017';
 const dbName = 'valuer';
 // set up express app
 const express = require('express');
