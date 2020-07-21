@@ -1,0 +1,24 @@
+{
+  "name": "valuer",
+  "version": "1.0.0",
+  "description": "Simple program that calculates and updates cost of purchased item per certain period.",
+  "main": "valuer.js",
+  "scripts": {
+    "dev": "nodemon valuer.js"
+  },
+  "author": "Vadim Colcev",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "handlebars": "^4.7.6",
+    "hbs": "^4.1.1",
+    "html": "^1.0.0",
+    "mongodb": "^3.5.9",
+    "path": "^0.12.7",
+    "postman-request": "^2.88.1-postman.23"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
+}
