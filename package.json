@@ -5,7 +5,7 @@
   "main": "valuer.js",
   "scripts": {
     "dev": "nodemon valuer.js",
-    "start": "nodemon valuer.js"
+    "start": "node valuer.js -e js,hbs"
   },
   "author": "Vadim Colcev",
   "license": "ISC",
