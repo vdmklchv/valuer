@@ -1,7 +1,6 @@
 const {MongoClient, ObjectId} = require('mongodb');
 const assert = require('assert');
-const fs = require('fs');
-const url = process.env.MONGODB_URI;
+const url = process.env.MONGODB_URI || 'mongodb://localhost:27017';
 const dbName = 'valuer';
 // set up express app
 const express = require('express');
@@ -11,7 +10,6 @@ const bodyParser = require('body-parser');
 const hbs = require('hbs');
 
 const path = require('path'); //adding path module
-const { fstat } = require('fs');
 
 const port = process.env.PORT || 3000; // defining port variable
 
