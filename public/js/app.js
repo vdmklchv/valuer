@@ -47,7 +47,7 @@ class ViewController {
       this.domSelectors.entriesList.innerHTML = '';
     }
     itemList.forEach((item, index) => {
-      this.domSelectors.entriesList.innerHTML += `<div class="entry-item" id=${index}><span>Title: ${item.title} </span><span>Price: ${item.value}</span> <span>Cost per day: ${arrayValue[index]}</span><span class="buttons"><button class="edit-item"><i class="fas fa-pencil-alt"></i></button><a href="/item/${index}" class="delete-item"><i class="far fa-trash-alt"></i></a></span></div>`
+      this.domSelectors.entriesList.innerHTML += `<div class="entry-item" id=${item._id}><span>Title: ${item.title} </span><span>Price: ${item.value}</span> <span>Cost per day: ${arrayValue[index]}</span><span class="buttons"><button class="edit-item"><i class="fas fa-pencil-alt"></i></button><a href="/item/${item._id}" class="delete-item"><i class="far fa-trash-alt"></i></a></span></div>`
     })
   }
 }

@@ -1,4 +1,8 @@
+const {MongoClient, ObjectId} = require('mongodb');
+const assert = require('assert');
 const fs = require('fs');
+const url = 'mongodb://localhost:27017';
+const dbName = 'valuer';
 // set up express app
 const express = require('express');
 const app = express();
@@ -7,7 +11,6 @@ const bodyParser = require('body-parser');
 const hbs = require('hbs');
 
 const path = require('path'); //adding path module
-//const data = require('./data.txt'); // importing own module with data information, will be substituted for database.
 const { fstat } = require('fs');
 
 const port = process.env.PORT || 3000; // defining port variable
@@ -29,7 +32,14 @@ app.get('/', (req, res) => {
 
 // data route
 app.get('/data', (req, res) => {
-  res.send(readData('./data.txt'));
+  MongoClient.connect(url, function(err, client) {
+    assert.equal(null, err);
+    console.log("Connected successfully to server");
+   
+    const db = client.db(dbName);
+    db.collection('item').find({}).toArray().then((result) => res.send(result));
+    client.close();
+  });
 })
 
 // get route for item
@@ -41,17 +51,17 @@ app.get('/item', (req, res) => {
 
 // post route for add form
 app.post('/item', (req, res) => {
-  let data = readData('./data.txt');
-  data.push(req.body);
 
-  // write data to file
-  fs.writeFileSync('./data.txt', JSON.stringify(data), (err, res) => {
-    if (err) {
-      return console.log('Unable to save database');
-    }
-  })
+  MongoClient.connect(url, function(err, client) {
+    assert.equal(null, err);
+    console.log("Connected successfully to server");
+   
+    const db = client.db(dbName);
+    db.collection('item').insertOne(req.body);
+   
+    client.close();
+  });
 
-  // redirect to main page
   res.redirect('/');
 })
 
@@ -59,14 +69,17 @@ app.get('/item/*', (req,res) => {
   if (typeof +req.params[0] !== 'number') {
     return res.send('No item to delete');
   }
-  let data = readData('./data.txt');
-  let modifiedData = data.filter((item) => data.indexOf(item) !== +req.params[0]);
-
-  fs.writeFileSync('./data.txt', JSON.stringify(modifiedData), (err, res) => {
-    if (err) {
-      return console.log(err);
-    }
+  MongoClient.connect(url, function(err, client) {
+    assert.equal(null, err);
+    console.log("Connected successfully to server");
+   
+    const db = client.db(dbName);
+    db.collection('item').deleteOne( {"_id": ObjectId(req.params[0])});
+   
+    client.close();
   });
+  
+ console.log(req.params[0]);
   res.redirect('/');
 })
 
@@ -74,20 +87,3 @@ app.get('/item/*', (req,res) => {
 app.listen(port, (req, res) => {
   console.log(`Server has started listening on port ${port}`);
 });
-
-// read data function
-function readData(file) {
-  const dataBuffer = fs.readFileSync(file, (err, res) => {
-    if (err) {
-      return console.log('Unable to read from file.');
-    } 
-    return res;
-  })
-  let data;
-  if (dataBuffer.length > 0) {
-    data = JSON.parse(dataBuffer.toString());
-  } else {
-    data = [];
-  }
-  return data;
-}
