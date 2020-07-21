@@ -4,7 +4,8 @@
   "description": "Simple program that calculates and updates cost of purchased item per certain period.",
   "main": "valuer.js",
   "scripts": {
-    "dev": "nodemon valuer.js"
+    "dev": "nodemon valuer.js",
+    "start": "nodemon valuer.js"
   },
   "author": "Vadim Colcev",
   "license": "ISC",
