@@ -1,7 +1,7 @@
 const {MongoClient, ObjectId} = require('mongodb');
 const assert = require('assert');
 const fs = require('fs');
-const url = 'mongodb://localhost:27017';
+const url = `mongodb://heroku_hc0krkgn:sj45ne2c2vis76s89k3ftflebb@ds033841.mlab.com:33841/heroku_hc0krkgn`;
 const dbName = 'valuer';
 // set up express app
 const express = require('express');
